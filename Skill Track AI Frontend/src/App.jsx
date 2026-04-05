@@ -8,6 +8,7 @@ import AddSkill from "./components/AddSkill";
 import Reports from "./components/Reports";
 import { useState } from "react";
 import ChatBot from "./components/ChatBot";
+import ProtectedRoute from "./components/ProtectedRoute";
 
 function App() {
   const [user, setUser] = useState(() => {
@@ -22,7 +23,11 @@ function App() {
         <Route path="/" element={<Login setUser={setUser} />} />
         <Route path="/register" element={<Register />} />
         <Route path="/home" element={<Home />} />
-        <Route path="/skills" element={<Skills />} />
+        <Route path="/skills" element={
+          <ProtectedRoute user={user}>
+          <Skills />
+        </ProtectedRoute>} 
+        />
         <Route path="/add-skill" element={<AddSkill userId={user?.id} />} />
         <Route path="/reports" element={<Reports userId={user?.id} />} />
         <Route path="/chatbot" element={<ChatBot/>} />
